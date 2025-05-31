@@ -1,159 +1,238 @@
-<DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Interest Rate ↔ APY Converter</title>
-    	<link rel="icon" href="favicon.ico" type="image/x-icon">
-	<style>
-		body {
-			font-family: Arial, sans-serif;
-			margin: 40px;
-			border-radius: 10px;
-			background-color: #f7f9fc;
-		}
-		h1, h2 {
-			
-			text-align: center;
-			color: #ed1941;
-			margin: auto;
-		}
-		h1 {
-			width: 100%;
-			max-height: 47px;
-			margin-bottom: 10px;
-		}
-		h2 {
-			margin-bottom: 20px;
-		}
-		.container {
-			box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-			background: white;
-			border-radius: 10px;
-			width: 470px;
-			height: auto;
-			min-width: 470px;
-			padding-top: 10px;
-			padding-left: 20px;
-			padding-right: 20px;
-			padding-bottom: 5px;
-		}
-		label, input {
-			display: block;
-			margin-bottom: 10px;
-			max-width: 400px;
-			min-width: 20%;
-			margin: auto;
-			margin-bottom: 5px;
-		}
-		label {
-			text-align: center;
-		}
+                <meta charset="UTF-8">
+                <title>Interest Rate ↔ APY Converter</title>
+                <link rel="icon" href="favicon.ico" type="image/x-icon">
+                <style>
+                                body {
+                                                font-family: Arial, sans-serif;
+                                                margin:8px;
+                                                border-radius: 10px;
+                                                background-color: #f7f9fc;
+                                                align-items: baseline;
+                                                display: flex;
+                                }
+                                h1, h2 {
+                                               
+                                                text-align: center;
+                                                color: #ed1941;
+                                                margin: auto;
+                                }
+                                h1 {
+                                                width: auto;
+                                                max-height: 47px;
+                                                margin-bottom: 10px;
+                                }
+                                h2 {
+                                                margin-bottom: 20px;
+                                }
+                                .container {
+                                                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                                                background: white;
+                                                border-radius: 10px;
+                                                width: 500px;
+                                                height: auto;
+                                                min-width: 470px;
+                                                padding-top: 10px;
+                                                padding-left: 20px;
+                                                padding-right: 20px;
+                                                padding-bottom: 5px;
+                                                margin: auto;
+                                }
+                                label, input {
+                                                display: block;
+                                                margin-bottom: 10px;
+                                                max-width: 400px;
+                                                min-width: 20%;
+                                                //margin: auto;
+                                                margin-bottom: 5px;
+                                }
+                                label {
+                                                text-align: center;
+                                }
+ 
+                                input {
+                                                padding: 8px;
+                                                font-size: 1em;
+                                                margin-bottom: 10px;
+                                                max-width: 165px;
+                                }
+                                button { 
+                                                font-size: 1em;
+                                                background-color: #ed1941;
+                                                text-align: center;
+                                                justify-content: center;
+                                                cursor: pointer
+                                                transition: 0.3s;
+                                                display: block;
+                                                border-radius: 4px;
+						border: none;
+						color: #000000;
+                                }
+                                .container button {
+                                                padding: 10px;
+                                                margin-top: 1-px;
+                                                margin: auto;
+                                                margin-bottom: 10px;
+                                }
+                                .openbtn {
+// 	                                        margin-top: 30px;
+						position: fixed;
+						margin: none;
+						height: auto;
+                                                font-size: 20px;
+                                                cursor: pointer;
+                                                color: white;
+                                                padding: 10px 15px;
 
-		input {
-			padding: 8px;
-			font-size: 1em;
-			margin-bottom: 10px;
-			max-width: 165px;
-		}
-		button{
-			padding: 10px;
-			font-size: 1em;
-			margin-top: 1-px;
-			border: none;
-			background-color: #ed1941;
-			color: #000000;
-			text-align: center;
-			justify-content: center;
-			cursor: pointer;
-			margin: auto;
-			transition: 0.3s;
-			display: block;
-			margin-bottom: 10px;
-			width: 100%;
-			border-radius: 4px;
-		}
-		button:hover {
-			background-color: #cd2e46;
-			opacity: 1;
-		}
-		.calcBody {
-			display: flex;
-			width: 470px;
-			align-items: flex-end;
-		}
-		.bottom {
-			display: flex;
-			justify-content: center;
-		}
-		.left,.right,.center {
-			gap: 0%
-		}
-		.left, .right {
-			min-width: 20%;
-			width: 40%;
-		}
-		.center {
-			width: 20%;
-		}
-		.bottom button {
-			max-width: 100%;
-			width: calc(100% - 23px);
-		}
-	</style>
+				}
+                                button:hover {
+                                                background-color: #cd2e46;
+                                                opacity: 1;
+                                }
+                                .calcBody {
+                                                display: flex;
+                                                width: 100%;
+                                                align-items: flex-end;
+						justify-content: center;
+                                }
+                                .bottom {
+                                                display: flex;
+                                                justify-content: center;
+                                }
+                                .left,.right,.center {
+                                                gap: 0%
+                                }
+                                .left, .right {
+                                                min-width: 20%;
+                                                width: 40%;
+                                }
+				.left {
+						justify-items: start;
+				}
+				.right {
+						justify-items: end;
+				}
+                                .center {
+                                                width: 20%;
+                                }
+                                .bottom button {
+                                                max-width: 100%;
+                                                width: 100%;
+                                }
+                                .sidepanel  {
+                                                width: 0;
+                                                position: fixed;
+                                                z-index: 1;
+                                                height: auto;
+                                                top: 0;
+                                                left: 0;
+                                                background-color: white;
+                                                overflow-x: hidden;
+                                                transition: 0.5s;
+                                                padding-top: 60px;
+                                                border-bottom-right-radius: 10px;
+                                                border-radius: 10px;
+                         		        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                                                padding-bottom: 20px;
+                                }
+                                .sidepanel a {
+                                                padding: 8px 8px 8px 32px;
+                                                text-decoration: none;
+                                                font-size: 25px;
+                                                color: #818181;
+                                                display: block;
+                                                transition: 0.3s;
+                                                height: auto;
+                                }
+ 
+                                .sidepanel a:hover {
+                                                color: #cd2e46;
+                                }
+ 
+                                .sidepanel .closebtn {
+                                                position: absolute;
+                                                top: 0;
+                                                right: 25px;
+                                                font-size: 36px;
+		                                color: #ed1941;
+                                }
+ 
+                                .title {
+					display: flex;
+				}
+                </style>
 </head>
 <body>
-	<div class="container">
-		<h1>Interest Rate ↔ APY Converter</h1>
-		<h2>Daily Compounding</h2>
-		<div class="calcBody" id="calcBody">
-			<div class="left">
-				<label for="interestRate">Interest Rate (%)</label>
-				<input type="number" id="interestRate" step="0.001" placeholder="Enter interest rate">
-			</div>
-			<div class="center">
-				<button onclick="calculate()">Convert</button>
-			</div>
-			<div class="right">
-				<label for="apy">APY (%)</label>
-				<input type="number" id="apy" step="0.001" placeholder="Enter APY">
-			</div>
-		</div>
-		<div class="bottom" id="bottom">
-			<button onclick="clearFields()">Clear</button>
-		</div>
-	</div>
-	<script>
-		function calculate() {
-			const rateInput = document.getElementById("interestRate");
-			const apyInput = document.getElementById("apy");
-
-			const rate = parseFloat(rateInput.value);
-			const apy = parseFloat(apyInput.value);
-
-			const compoundingPeriods = 365;
-
-			if (!isNaN(rate) && rateInput.value !== "") {
-				const apyValue = (Math.pow(1 + (rate / 100) / compoundingPeriods, compoundingPeriods) - 1) * 100;
-				apyInput.value = apyValue.toFixed(2);
-
-			} else if (!isNaN(apy) && apyInput.value !== "") {
-				const rateValue = (Math.pow(1 + (apy / 100), 1 / compoundingPeriods) - 1) * compoundingPeriods * 100;
-				rateInput.value = rateValue.toFixed(3);
-			} else {
-				alert("Please enter either the interest rate or the APY.");
-			}
-		}
-		function clearFields() {
-			document.getElementById("interestRate").value = "";
-			document.getElementById("apy").value = "";
-		}
-		
-		document.addEventListener("keydown", function (event) {
-			if (event.key === "Enter") {
-				event.preventDefault();
-				calculate();
-			}
-		});
-	</script>
+                <div id="sidepanel" class="sidepanel">
+                                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+                 		<a href="index.html">CD Calculator</a>
+		                <a style="color:rgb(237,25,65)">APY Converter</a>
+                </div>
+                <button class="openbtn" onclick="openNav()">☰</button> 
+                <div class="container">
+				<div class="title">
+					<h1>Interest Rate</h1>
+					<h1>↔</h1>
+					<h1>APY Converter</h1>
+				</div>
+				<h2>Daily Compounding</h2>
+                                <div class="calcBody" id="calcBody">
+                                                <div class="left">
+                                                                <label for="interestRate">Interest Rate (%)</label>
+                                                                <input type="number" id="interestRate" step="0.001" placeholder="Enter interest rate">
+                                                </div>
+                                                <div class="center">
+                                                                <button onclick="calculate()">Convert</button>
+                                                </div>
+                                                <div class="right">
+                                                                <label for="apy">APY (%)</label>
+                                                                <input type="number" id="apy" step="0.001" placeholder="Enter APY">
+                                                </div>
+                                </div>
+                                <div class="bottom" id="bottom">
+                                                <button onclick="clearFields()">Clear</button>
+                                </div>
+                </div>
+                <script>
+                                function calculate() {
+                                                const rateInput = document.getElementById("interestRate");
+                                                const apyInput = document.getElementById("apy");
+ 
+                                                const rate = parseFloat(rateInput.value);
+                                                const apy = parseFloat(apyInput.value);
+ 
+                                                const compoundingPeriods = 365;
+ 
+                                                if (!isNaN(rate) && rateInput.value !== "") {
+                                                                const apyValue = (Math.pow(1 + (rate / 100) / compoundingPeriods, compoundingPeriods) - 1) * 100;
+                                                                apyInput.value = apyValue.toFixed(2);
+ 
+                                                } else if (!isNaN(apy) && apyInput.value !== "") {
+                                                                const rateValue = (Math.pow(1 + (apy / 100), 1 / compoundingPeriods) - 1) * compoundingPeriods * 100;
+                                                                rateInput.value = rateValue.toFixed(3);
+                                                } else {
+                                                                alert("Please enter either the interest rate or the APY.");
+                                                }
+                                }
+                                function clearFields() {
+                                                document.getElementById("interestRate").value = "";
+                                                document.getElementById("apy").value = "";
+                                }
+                                function openNav() {
+                                                document.getElementById("sidepanel").style.width = "250px";
+                                }
+                                function closeNav() {
+                                                document.getElementById("sidepanel").style.width = "0";
+                                }
+                               
+                                document.addEventListener("keydown", function (event) {
+                                                if (event.key === "Enter") {
+                                                                event.preventDefault();
+                                                                calculate();
+                                                }
+                                });
+                </script>
 </body>
 </html>
