@@ -1,238 +1,368 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-                <meta charset="UTF-8">
-                <title>Interest Rate ↔ APY Converter</title>
-                <link rel="icon" href="favicon.ico" type="image/x-icon">
-                <style>
-                                body {
-                                                font-family: Arial, sans-serif;
-                                                margin:8px;
-                                                border-radius: 10px;
-                                                background-color: #f7f9fc;
-                                                align-items: baseline;
-                                                display: flex;
-                                }
-                                h1, h2 {
-                                               
-                                                text-align: center;
-                                                color: #ed1941;
-                                                margin: auto;
-                                }
-                                h1 {
-                                                width: auto;
-                                                max-height: 47px;
-                                                margin-bottom: 10px;
-                                }
-                                h2 {
-                                                margin-bottom: 20px;
-                                }
-                                .container {
-                                                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-                                                background: white;
-                                                border-radius: 10px;
-                                                width: 500px;
-                                                height: auto;
-                                                min-width: 470px;
-                                                padding-top: 10px;
-                                                padding-left: 20px;
-                                                padding-right: 20px;
-                                                padding-bottom: 5px;
-                                                margin: auto;
-                                }
-                                label, input {
-                                                display: block;
-                                                margin-bottom: 10px;
-                                                max-width: 400px;
-                                                min-width: 20%;
-                                                //margin: auto;
-                                                margin-bottom: 5px;
-                                }
-                                label {
-                                                text-align: center;
-                                }
- 
-                                input {
-                                                padding: 8px;
-                                                font-size: 1em;
-                                                margin-bottom: 10px;
-                                                max-width: 165px;
-                                }
-                                button { 
-                                                font-size: 1em;
-                                                background-color: #ed1941;
-                                                text-align: center;
-                                                justify-content: center;
-                                                cursor: pointer
-                                                transition: 0.3s;
-                                                display: block;
-                                                border-radius: 4px;
-						border: none;
-						color: #000000;
-                                }
-                                .container button {
-                                                padding: 10px;
-                                                margin-top: 1-px;
-                                                margin: auto;
-                                                margin-bottom: 10px;
-                                }
-                                .openbtn {
-// 	                                        margin-top: 30px;
-						position: fixed;
-						margin: none;
-						height: auto;
-                                                font-size: 20px;
-                                                cursor: pointer;
-                                                color: white;
-                                                padding: 10px 15px;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interest Rate ↔ APY Converter</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f9fc;
+            color: #ed1941;
+            align-items: baseline;
+            display: flex;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .container {
+            max-width: 600px;
+            width: 100%;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-sizing: border-box;
+        }
+        h1 {
+            text-align: center;
+            color: #ed1941;
+            margin-bottom: 10px;
+            margin-top: 0px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+        .converter-layout {
+            display: flex;
+            align-items: flex-end;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+        .input-group {
+            flex: 1;
+        }
+        .convert-button {
+            flex: 0 0 auto;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 8px;
+            text-align: center;
+            color: #ed1941;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ed1941;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+            text-align: center;
+        }
+        input:focus {
+            outline: none;
+            border-color: #cd2e46;
+            box-shadow: 0 0 5px rgba(237, 25, 65, 0.3);
+        }
+        input.success {
+            border-color: #4caf50;
+            background-color: #f8fff8;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #ed1941;
+            color: #ffffff;
+            border: 1px solid #ed1941;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background-color: #cd2e46;
+        }
+        .button-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        .clear-button {
+            background-color: #666;
+            border-color: #666;
+            color: #ffffff;
+            width: 100%;
+        }
+        .clear-button:hover {
+            background-color: #555;
+        }
+        .error {
+            color: #d32f2f;
+            font-size: 14px;
+            margin-top: 5px;
+            text-align: center;
+        }
 
-				}
-                                button:hover {
-                                                background-color: #cd2e46;
-                                                opacity: 1;
-                                }
-                                .calcBody {
-                                                display: flex;
-                                                width: 100%;
-                                                align-items: flex-end;
-						justify-content: center;
-                                }
-                                .bottom {
-                                                display: flex;
-                                                justify-content: center;
-                                }
-                                .left,.right,.center {
-                                                gap: 0%
-                                }
-                                .left, .right {
-                                                min-width: 20%;
-                                                width: 40%;
-                                }
-				.left {
-						justify-items: start;
-				}
-				.right {
-						justify-items: end;
-				}
-                                .center {
-                                                width: 20%;
-                                }
-                                .bottom button {
-                                                max-width: 100%;
-                                                width: 100%;
-                                }
-                                .sidepanel  {
-                                                width: 0;
-                                                position: fixed;
-                                                z-index: 1;
-                                                height: auto;
-                                                top: 0;
-                                                left: 0;
-                                                background-color: white;
-                                                overflow-x: hidden;
-                                                transition: 0.5s;
-                                                padding-top: 60px;
-                                                border-bottom-right-radius: 10px;
-                                                border-radius: 10px;
-                         		        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-                                                padding-bottom: 20px;
-                                }
-                                .sidepanel a {
-                                                padding: 8px 8px 8px 32px;
-                                                text-decoration: none;
-                                                font-size: 25px;
-                                                color: #818181;
-                                                display: block;
-                                                transition: 0.3s;
-                                                height: auto;
-                                }
- 
-                                .sidepanel a:hover {
-                                                color: #cd2e46;
-                                }
- 
-                                .sidepanel .closebtn {
-                                                position: absolute;
-                                                top: 0;
-                                                right: 25px;
-                                                font-size: 36px;
-		                                color: #ed1941;
-                                }
- 
-                                .title {
-					display: flex;
-				}
-                </style>
+        .sidepanel {
+            width: 250px;
+            transform: translateX(-100%);
+            position: fixed;
+            z-index: 1;
+            height: auto;
+            top: 0;
+            left: 0;
+            background-color: white;
+            overflow-x: hidden;
+            transition: transform 0.5s ease;
+            padding-top: 50px;
+            border-bottom-right-radius: 10px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding-bottom: 20px;
+        }
+        .sidepanel a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+            height: auto;
+        }
+        .sidepanel a:hover {
+            color: #cd2e46;
+        }
+        .sidepanel .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            color: #ed1941;
+        }
+        .openbtn {
+            font-size: 20px;
+            cursor: pointer;
+            color: white;
+            padding: 10px 15px;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            .container {
+                padding: 20px;
+            }
+            .converter-layout {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .convert-button {
+                margin-bottom: 0;
+                align-self: stretch;
+            }
+            .button-group {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .converter-layout {
+                gap: 10px;
+            }
+            input {
+                font-size: 14px;
+            }
+            button {
+                font-size: 14px;
+                padding: 10px 15px;
+            }
+        }
+        
+        #sidepanel.open {
+            transform: translateX(0);
+        }
+    </style>
 </head>
 <body>
-                <div id="sidepanel" class="sidepanel">
-                                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-                 		<a href="index.html">CD Calculator</a>
-		                <a style="color:rgb(237,25,65)">APY Converter</a>
-                </div>
-                <button class="openbtn" onclick="openNav()">☰</button> 
-                <div class="container">
-				<div class="title">
-					<h1>Interest Rate</h1>
-					<h1>↔</h1>
-					<h1>APY Converter</h1>
-				</div>
-				<h2>Daily Compounding</h2>
-                                <div class="calcBody" id="calcBody">
-                                                <div class="left">
-                                                                <label for="interestRate">Interest Rate (%)</label>
-                                                                <input type="number" id="interestRate" step="0.001" placeholder="Enter interest rate">
-                                                </div>
-                                                <div class="center">
-                                                                <button onclick="calculate()">Convert</button>
-                                                </div>
-                                                <div class="right">
-                                                                <label for="apy">APY (%)</label>
-                                                                <input type="number" id="apy" step="0.001" placeholder="Enter APY">
-                                                </div>
-                                </div>
-                                <div class="bottom" id="bottom">
-                                                <button onclick="clearFields()">Clear</button>
-                                </div>
-                </div>
-                <script>
-                                function calculate() {
-                                                const rateInput = document.getElementById("interestRate");
-                                                const apyInput = document.getElementById("apy");
- 
-                                                const rate = parseFloat(rateInput.value);
-                                                const apy = parseFloat(apyInput.value);
- 
-                                                const compoundingPeriods = 365;
- 
-                                                if (!isNaN(rate) && rateInput.value !== "") {
-                                                                const apyValue = (Math.pow(1 + (rate / 100) / compoundingPeriods, compoundingPeriods) - 1) * 100;
-                                                                apyInput.value = apyValue.toFixed(2);
- 
-                                                } else if (!isNaN(apy) && apyInput.value !== "") {
-                                                                const rateValue = (Math.pow(1 + (apy / 100), 1 / compoundingPeriods) - 1) * compoundingPeriods * 100;
-                                                                rateInput.value = rateValue.toFixed(3);
-                                                } else {
-                                                                alert("Please enter either the interest rate or the APY.");
-                                                }
-                                }
-                                function clearFields() {
-                                                document.getElementById("interestRate").value = "";
-                                                document.getElementById("apy").value = "";
-                                }
-                                function openNav() {
-                                                document.getElementById("sidepanel").style.width = "250px";
-                                }
-                                function closeNav() {
-                                                document.getElementById("sidepanel").style.width = "0";
-                                }
-                               
-                                document.addEventListener("keydown", function (event) {
-                                                if (event.key === "Enter") {
-                                                                event.preventDefault();
-                                                                calculate();
-                                                }
-                                });
-                </script>
+    <div id="sidepanel" class="sidepanel">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+        <a href="index.html" onclick="handleNavClick(event, 'index.html')">CD Calculator</a>
+        <a style="color:rgb(237,25,65);">APY Converter</a>
+    </div>
+    <button class="openbtn" onclick="openNav()" aria-label="Open navigation menu">☰</button>
+    
+    <div class="container">
+        <h1>Interest Rate ↔ APY Converter</h1>
+        <p class="subtitle">Daily Compounding (365 days/year)</p>
+        
+        <div class="converter-layout">
+            <div class="input-group">
+                <label for="interestRate">Interest Rate (%)</label>
+                <input type="number" id="interestRate" step="0.001" placeholder="e.g. 4.500" 
+                       min="0" max="50" aria-label="Interest rate percentage">
+                <div id="rateError" class="error" style="display: none;"></div>
+            </div>
+            
+            <div class="convert-button">
+                <button type="button" onclick="calculate()">Convert</button>
+            </div>
+            
+            <div class="input-group">
+                <label for="apy">APY (%)</label>
+                <input type="number" id="apy" step="0.001" placeholder="e.g. 4.603" 
+                       min="0" max="50" aria-label="Annual percentage yield">
+                <div id="apyError" class="error" style="display: none;"></div>
+            </div>
+        </div>
+        
+        <div class="success-message" id="successMessage"></div>
+        
+        <div class="button-group">
+            <button type="button" class="clear-button" onclick="clearFields()">Clear</button>
+        </div>
+    </div>
+
+    <script>
+        // Constants
+        const DAYS_PER_YEAR = 365;
+        const MAX_RATE = 50;
+        const MIN_RATE = 0;
+
+        function clearErrors() {
+            const errorElements = document.querySelectorAll('.error');
+            errorElements.forEach(el => {
+                el.style.display = 'none';
+                el.textContent = '';
+            });
+            
+            //remove success styling
+            document.querySelectorAll('input').forEach(input => {
+                input.classList.remove('success');
+            });
+            
+            document.getElementById('successMessage').style.display = 'none';
+        }
+
+        function showError(elementId, message) {
+            const errorEl = document.getElementById(elementId);
+            errorEl.textContent = message;
+            errorEl.style.display = 'block';
+        }
+
+        function showSuccess(message) {
+            const successEl = document.getElementById('successMessage');
+            successEl.textContent = message;
+            successEl.style.display = 'block';
+        }
+
+        function validateInput(value, fieldName) {
+            if (isNaN(value) || value < MIN_RATE) {
+                return `${fieldName} must be a positive number`;
+            }
+            if (value > MAX_RATE) {
+                return `${fieldName} cannot exceed ${MAX_RATE}%`;
+            }
+            return null;
+        }
+
+        function calculate() {
+            clearErrors();
+            
+            const rateInput = document.getElementById("interestRate");
+            const apyInput = document.getElementById("apy");
+            
+            const rateValue = parseFloat(rateInput.value);
+            const apyValue = parseFloat(apyInput.value);
+            
+            const hasRate = !isNaN(rateValue) && rateInput.value !== "";
+            const hasApy = !isNaN(apyValue) && apyInput.value !== "";
+            
+            // Check if both fields are filled
+            if (hasRate && hasApy) {
+                showError('rateError', 'Please enter only one value to convert');
+                showError('apyError', 'Please enter only one value to convert');
+                return;
+            }
+            
+            // Check if neither field is filled
+            if (!hasRate && !hasApy) {
+                showError('rateError', 'Please enter either interest rate or APY');
+                return;
+            }
+            
+            if (hasRate) {
+                // Validate interest rate
+                const rateError = validateInput(rateValue, 'Interest rate');
+                if (rateError) {
+                    showError('rateError', rateError);
+                    return;
+                }
+                
+                // Convert interest rate to APY
+                const calculatedApy = (Math.pow(1 + (rateValue / 100) / DAYS_PER_YEAR, DAYS_PER_YEAR) - 1) * 100;
+                apyInput.value = calculatedApy.toFixed(2);
+                apyInput.classList.add('success');
+                
+                
+            } else if (hasApy) {
+                // Validate APY
+                const apyError = validateInput(apyValue, 'APY');
+                if (apyError) {
+                    showError('apyError', apyError);
+                    return;
+                }
+                
+                // Convert APY to interest rate
+                const calculatedRate = (Math.pow(1 + (apyValue / 100), 1 / DAYS_PER_YEAR) - 1) * DAYS_PER_YEAR * 100;
+                rateInput.value = calculatedRate.toFixed(3);
+                rateInput.classList.add('success');
+                showSuccess(`Converted ${apyValue}% APY to ${calculatedRate.toFixed(3)}% interest rate`);
+            }
+        }
+
+        function clearFields() {
+            document.getElementById("interestRate").value = "";
+            document.getElementById("apy").value = "";
+            clearErrors();
+        }
+
+        function openNav() {
+            document.getElementById("sidepanel").classList.add("open");
+        }
+
+        function closeNav() {
+            document.getElementById("sidepanel").classList.remove("open");
+        }
+
+
+        //allow enter key to trigger conversion
+        document.addEventListener("keydown", function (event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                calculate();
+            }
+        });
+
+        // Clear errors when user starts typing
+        document.getElementById('interestRate').addEventListener('input', function() {
+            if (this.value === '') {
+                clearErrors();
+            }
+        });
+
+        document.getElementById('apy').addEventListener('input', function() {
+            if (this.value === '') {
+                clearErrors();
+            }
+        });
+    </script>
 </body>
 </html>

@@ -1,8 +1,8 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CD Interest Calculator</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <style>
@@ -10,21 +10,34 @@
             font-family: Arial, sans-serif;
             background-color: #f7f9fc;
             color: #ed1941;
-	    align-items: baseline;
-	    display: flex;
+            align-items: baseline;
+            display: flex;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
         }
         .container {
             max-width: 800px;
-	    width: 800px;
+            width: 100%;
             margin: auto;
             background: white;
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-sizing: border-box;
         }
         h1 {
             text-align: center;
             color: #ed1941;
+            margin-bottom: 10px;
+            margin-top: 0px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 30px;
+            font-style: italic;
         }
         label {
             font-weight: bold;
@@ -32,40 +45,56 @@
             margin-top: 20px;
         }
         input, select {
-            //width: 100%;
             padding: 10px;
             margin-top: 5px;
             border: 1px solid #ed1941;
             border-radius: 5px;
-	    box-sizing: border-box;
+            box-sizing: border-box;
         }
-	input:not([type="checkbox"]), select {
-	    width: 100%
-	}
+        input:not([type="checkbox"]), select {
+            width: 100%
+        }
         button {
             padding: 12px;
             background-color: #ed1941;
-            color: #000000;
+            color: #ffffff;
             border: 1px solid #ed1941;
             border-radius: 5px;
             font-size: 16px;
             cursor: pointer;
-	    transition: 0.3s;
+            transition: 0.3s;
         }
-	button:not(.openbtn) {
-            margin-top: 30px;
-	    width: 100%;
-	}
+        button:not(.openbtn) {
+            margin-top: 20px;
+            width: 100%;
+        }
         button:hover {
             background-color: #cd2e46;
-	    opacity: 1;
+            opacity: 1;
+        }
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+        }
+        .button-group button {
+            margin-top: 0;
+            flex: 1;
+        }
+        .clear-button {
+            background-color: #666;
+            border-color: #666;
+	    color: #ffffff;
+        }
+        .clear-button:hover {
+            background-color: #555;
         }
         .result {
             margin-top: 30px;
             background-color: #ffffff;
             padding: 20px;
             border-left: 5px solid #ed1941;
-	    color: #000000
+            color: #000000
         }
         table {
             width: 100%;
@@ -79,106 +108,149 @@
         th {
             background-color: #ffffff;
         }
-	.result-columns {
-		display: flex;
-		justify-content: space-between;
-		gap: 40px;
-	}
-	.left-column, .right-column {
-		flex: 1;
-	}
-	.right-column {
-		text-align: right;
-	}
-	.checkbox-row {
-		display: flex;
-		align-items: baseline;
-		gap: 10px;
-	}
-	.dateRow {
-		display: flex;
-		gap: 1%;
-		align-items: center;
-		width: 100%;
-		justify-content: space-between;
-	}
-	.dateRow input[type="date"] {
-		flex: 0 0 80%;
-		padding: 10px;
-	}
-	.dateRow button {
-		flex: 0 0 19%;
-		padding: 10px;
-		margin-top: 5px;
+        .result-columns {
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+        }
+        .left-column, .right-column {
+            flex: 1;
+        }
+        .right-column {
+            text-align: right;
+        }
+        .checkbox-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .checkbox-row label {
+            margin-top: 0;
+            font-weight: normal;
+        }
+        .dateRow {
+            display: flex;
+            gap: 1%;
+            align-items: center;
+            width: 100%;
+            justify-content: space-between;
+        }
+        .dateRow input[type="date"] {
+            flex: 0 0 80%;
+            padding: 10px;
+        }
+        .dateRow button {
+            flex: 0 0 19%;
+            padding: 10px;
+            margin-top: 5px;
+        }
+        .sidepanel {
+            width: 250px;
+            transform: translateX(-100%);
+            position: fixed;
+            z-index: 1;
+            height: auto;
+            top: 0;
+            left: 0;
+            background-color: white;
+            overflow-x: hidden;
+            transition: transform 0.5s ease;
+            padding-top: 50px;
+            border-bottom-right-radius: 10px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding-bottom: 20px;
+        }
+        .sidepanel a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+            height: auto;
+        }
+        .sidepanel a:hover {
+            color: #cd2e46;
+        }
+        .sidepanel .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            color: #ed1941;
+        }
+        .openbtn {
+            font-size: 20px;
+            cursor: pointer;
+            color: white;
+            padding: 10px 15px;
+        }
+        .error {
+            color: #d32f2f;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            .container {
+                padding: 20px;
+            }
+            .result-columns {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .right-column {
+                text-align: left;
+            }
+            .dateRow {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .dateRow input[type="date"],
+            .dateRow button {
+                flex: none;
+                width: 100%;
+            }
+            .button-group {
+                flex-direction: column;
+            }
+        }
 
-	}
-	.sidepanel  {
-		width: 0;
-		position: fixed;
-		z-index: 1;
-		height: auto;
-		top: 0;
-		left: 0;
-		background-color: white;
-		overflow-x: hidden;
-		transition: 0.5s;
-		padding-top: 60px;
-		border-bottom-right-radius: 10px;
-                border-radius: 10px;
-                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-		padding-bottom: 20px;
-	}
-
-	.sidepanel a {
-		padding: 8px 8px 8px 32px;
-		text-decoration: none;
-		font-size: 25px;
-		color: #818181;
-		display: block;
-		transition: 0.3s;
-		height: auto;
-	}
-
-	.sidepanel a:hover {
-  		color: #cd2e46;
-	}
-
-	.sidepanel .closebtn {
-  		position: absolute;
-  		top: 0;
-  		right: 25px;
-  		font-size: 36px;
-                color: #ed1941;
-	}
-
-	.openbtn {
-  		font-size: 20px;
-  		cursor: pointer;
-  		color: white;
-  		padding: 10px 15px;
-	}
+        #sidepanel.open {
+            transform: translateX(0);
+        }
     </style>
 </head>
 <body>
     <div id="sidepanel" class="sidepanel">
-  	<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
         <a style="color:rgb(237,25,65);">CD Calculator</a>
-        <a href="apy-converter.html">APY Converter</a>
+        <a href="apy-converter.html" onclick="handleNavClick(event, 'apy-converter.html')">APY Converter</a>
     </div>
-    <button class="openbtn" onclick="openNav()">☰</button>  
+    <button class="openbtn" onclick="openNav()" aria-label="Open navigation menu">☰</button>  
     <div class="container">
         <h1>CD Interest Calculator</h1>
+        <p class="subtitle">Calculations based on daily compounding (365 days/year)</p>
+        
         <label for="amount">Initial Deposit Amount ($):</label>
-        <input type="number" id="amount" placeholder="e.g. 1000">
+        <input type="number" id="amount" placeholder="e.g. 1000" min="1" max="10000000" step="0.01">
+        <div id="amountError" class="error" style="display: none;"></div>
 
         <label for="term">Term Length (months):</label>
-        <input type="number" id="term" width=100% placeholder="e.g. 12">
+        <input type="number" id="term" placeholder="e.g. 12" min="1" max="60">
+        <div id="termError" class="error" style="display: none;"></div>
         
-	<label for="startDate">Start Date:</label>
-	<div class="dateRow">
-        	<input type="date" id="startDate">
-		<button onclick="setToday()">Today</button>
-	</div>
+        <label for="startDate">Start Date:</label>
+        <div class="dateRow">
+            <input type="date" id="startDate" aria-label="Certificate of deposit start date">
+            <button type="button" onclick="setToday()">Today</button>
+        </div>
+        <div id="dateError" class="error" style="display: none;"></div>
 
         <label for="rateType">Choose Type:</label>
         <select id="rateType" class="full-width">
@@ -187,33 +259,37 @@
         </select>
 
         <label for="rate">Enter Value (%):</label>
-        <input type="number" step="0.01" id="rate" placeholder="e.g. 5.00">
+        <input type="number" step="0.01" id="rate" placeholder="e.g. 5.00" min="0" max="50">
+        <div id="rateError" class="error" style="display: none;"></div>
 
-	<div class="checkbox-row">
-		<label for="isCompounded">Check if the CD is being compounded →</label>
-		<input type="checkbox" id="isCompounded" >
-	</div>
+        <div class="checkbox-row">
+            <input type="checkbox" id="isCompounded" aria-describedby="compoundingHelp">
+            <label for="isCompounded">← Check if the CD compounds interest (adds interest to principal)</label>
+        </div>
 
-        <button onclick="calculate()">Calculate</button>
+        <div class="button-group">
+            <button type="button" onclick="calculate()">Calculate</button>
+            <button type="button" class="clear-button" onclick="clearForm()">Clear</button>
+        </div>
 
         <div class="result" id="result" style="display: none;">
-	    <h2 style="margin-bottom: 0px; margin-top: 0px; text-align: center;">Results</h2>
-	    <div class="result-columns">
-	    	<div class="left-column">
-            		<p><strong>Total Interest Earned:</strong> <span id="interest"></span></p>
-            		<p><strong>Total Balance at Maturity:</strong> <span id="total"></span></p>
-	    		<div id = "apyResult">
-	        		<p><strong>Calculated APY:</strong> <span id="calcApy"></span></p>
-	    		</div>
-	    		<div id = "rateResult">
-	    			<p><strong>Calculated Interest Rate:</strong> <span id="calcRate"></span></p>
-	    		</div>
-		</div>
-		<div class="right-column">
-			<p><strong>Maturity Date:</strong> <span id="maturity"></span></p>
-            		<p><strong>Total Days in Term:</strong> <span id="totalDays"></span></p>
-		</div>
-	    </div>
+            <h2 style="margin-bottom: 0px; margin-top: 0px; text-align: center;">Results</h2>
+            <div class="result-columns">
+                <div class="left-column">
+                    <p><strong>Total Interest Earned:</strong> <span id="interest"></span></p>
+                    <p><strong>Total Balance at Maturity:</strong> <span id="total"></span></p>
+                    <div id="apyResult">
+                        <p><strong>Calculated APY:</strong> <span id="calcApy"></span></p>
+                    </div>
+                    <div id="rateResult">
+                        <p><strong>Calculated Interest Rate:</strong> <span id="calcRate"></span></p>
+                    </div>
+                </div>
+                <div class="right-column">
+                    <p><strong>Maturity Date:</strong> <span id="maturity"></span></p>
+                    <p><strong>Total Days in Term:</strong> <span id="totalDays"></span></p>
+                </div>
+            </div>
             <h3 style="text-align: center;">Monthly Breakdown</h3>
             <table>
                 <thead>
@@ -224,47 +300,114 @@
         </div>
     </div>
 
-
-
     <script>
-	function setToday() {
-	    const today = new Date().toISOString().split('T')[0];
-	    document.getElementById('startDate').value = today;
-	}
+        // Constants
+        const DAYS_PER_YEAR = 365;
+        const MAX_TERM_MONTHS = 60;
+        
+        // Initialize page
+        window.addEventListener('DOMContentLoaded', function() {
+            setToday();
+        });
+
+        function setToday() {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('startDate').value = today;
+        }
+
+        function clearForm() {
+            document.getElementById('amount').value = '';
+            document.getElementById('term').value = '';
+            document.getElementById('rate').value = '';
+            document.getElementById('isCompounded').checked = false;
+            document.getElementById('rateType').value = 'interestRate';
+            setToday();
+            document.getElementById('result').style.display = 'none';
+            clearErrors();
+        }
+
+        function clearErrors() {
+            const errorElements = document.querySelectorAll('.error');
+            errorElements.forEach(el => {
+                el.style.display = 'none';
+                el.textContent = '';
+            });
+        }
+
+        function showError(elementId, message) {
+            const errorEl = document.getElementById(elementId);
+            errorEl.textContent = message;
+            errorEl.style.display = 'block';
+        }
+
+        function validateInputs() {
+            clearErrors();
+            let isValid = true;
+
+            const amount = parseFloat(document.getElementById('amount').value);
+            const term = parseInt(document.getElementById('term').value);
+            const rateInput = parseFloat(document.getElementById('rate').value);
+            const startDate = new Date(document.getElementById('startDate').value);
+
+            if (isNaN(amount) || amount <= 0) {
+                showError('amountError', 'Please enter a valid deposit amount greater than $0');
+                isValid = false;
+            } else if (amount > 10000000) {
+                showError('amountError', 'Maximum deposit amount is $10,000,000');
+                isValid = false;
+            }
+
+            if (isNaN(term) || term < 1 || term > MAX_TERM_MONTHS) {
+                showError('termError', `Please enter a term between 1 and ${MAX_TERM_MONTHS} months`);
+                isValid = false;
+            }
+
+            if (isNaN(startDate.getTime())) {
+                showError('dateError', 'Please select a valid start date');
+                isValid = false;
+            }
+
+            if (isNaN(rateInput) || rateInput < 0 || rateInput > 50) {
+                showError('rateError', 'Please enter a rate between 0% and 50%');
+                isValid = false;
+            }
+
+            return isValid;
+        }
 
         function calculate() {
+            if (!validateInputs()) {
+                return;
+            }
+
             const amount = parseFloat(document.getElementById('amount').value);
             const term = parseInt(document.getElementById('term').value);
             const rateType = document.getElementById('rateType').value;
             const rateInput = parseFloat(document.getElementById('rate').value);
             const isCompound = document.getElementById('isCompounded').checked;
             const startDate = new Date(document.getElementById('startDate').value);
-	    const maturityDate = new Date(startDate);
-	    maturityDate.setMonth(maturityDate.getMonth() + term);
-	    maturityDate.setDate(maturityDate.getDate() + 1);
-	    const timeDiff = maturityDate - startDate;
-	    const totalDays = Math.round(timeDiff / (1000 * 60 * 60 * 24));
-	    const formatter = new Intl.NumberFormat('en-US', {
-	    	style: 'currency',
-	    	currency: 'USD',
-		minimumFractionDigits: 2,
-	    });
-
-	    
-
-            if (isNaN(amount) || isNaN(term) || isNaN(rateInput) || isNaN(startDate.getTime())) {
-                alert("Please fill in all fields with valid values.");
-                return;
-            }
+            
+            const maturityDate = new Date(startDate);
+            maturityDate.setMonth(maturityDate.getMonth() + term);
+            maturityDate.setDate(maturityDate.getDate() + 1); // Interest paid day before, but technically matures next day
+            
+            const timeDiff = maturityDate - startDate;
+            const totalDays = Math.round(timeDiff / (1000 * 60 * 60 * 24));
+            
+            const formatter = new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                minimumFractionDigits: 2,
+            });
 
             let interestRate, apy;
 
             if (rateType === "interestRate") {
                 interestRate = rateInput / 100;
-                apy = (Math.pow(1 + interestRate / 365, 365) - 1) * 100;
+                apy = (Math.pow(1 + interestRate / DAYS_PER_YEAR, DAYS_PER_YEAR) - 1) * 100;
             } else {
                 apy = rateInput / 100;
-                interestRate = 365 * (Math.pow(1 + apy, 1/365) - 1);
+                interestRate = DAYS_PER_YEAR * (Math.pow(1 + apy, 1/DAYS_PER_YEAR) - 1);
             }
 
             let balance = amount;
@@ -273,7 +416,7 @@
             breakdownBody.innerHTML = "";
 
             let currentDate = new Date(startDate);
-	    currentDate.setMonth(currentDate.getMonth() + 1);
+            currentDate.setMonth(currentDate.getMonth() + 1);
 
             for (let m = 0; m < term; m++) {
                 const nextDate = new Date(currentDate);
@@ -282,8 +425,8 @@
                 const daysInMonth = Math.round((nextDate - currentDate) / (1000 * 60 * 60 * 24));
 
                 const factor = isCompound
-                    ? Math.pow(1 + interestRate / 365, daysInMonth) - 1
-                    : (interestRate / 365) * daysInMonth;
+                    ? Math.pow(1 + interestRate / DAYS_PER_YEAR, daysInMonth) - 1
+                    : (interestRate / DAYS_PER_YEAR) * daysInMonth;
 
                 const interest = balance * factor;
                 if (isCompound) balance += interest;
@@ -299,27 +442,42 @@
                 currentDate = nextDate;
             }
 
+            // Display results
             if (rateType === "interestRate") {
-	    	document.getElementById('apyResult').style.display = "block";
-	    	document.getElementById('rateResult').style.display = "none";
-	    	document.getElementById('calcApy').textContent = apy.toFixed(2) + "%";
-	    } else {
-	    	document.getElementById('rateResult').style.display = "block";
-	    	document.getElementById('apyResult').style.display = "none";
-	    	document.getElementById('calcRate').textContent = (interestRate * 100).toFixed(2) + "%";
-	    }
-	    document.getElementById('interest').textContent = formatter.format(totalInterest);
+                document.getElementById('apyResult').style.display = "block";
+                document.getElementById('rateResult').style.display = "none";
+                document.getElementById('calcApy').textContent = apy.toFixed(2) + "%";
+            } else {
+                document.getElementById('rateResult').style.display = "block";
+                document.getElementById('apyResult').style.display = "none";
+                document.getElementById('calcRate').textContent = (interestRate * 100).toFixed(2) + "%";
+            }
+            
+            document.getElementById('interest').textContent = formatter.format(totalInterest);
             document.getElementById('total').textContent = formatter.format(amount + totalInterest);
             document.getElementById('maturity').textContent = maturityDate.toLocaleDateString();
-	    document.getElementById('totalDays').textContent = totalDays;
-	    document.getElementById('result').style.display = "block";
+            document.getElementById('totalDays').textContent = totalDays;
+            document.getElementById('result').style.display = "block";
+            
+	    //scroll to results
+            document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
-	function openNav() {
-		document.getElementById("sidepanel").style.width = "250px";
-	}
-	function closeNav() {
-		document.getElementById("sidepanel").style.width = "0";
-	}
+
+        function openNav() {
+            document.getElementById("sidepanel").classList.add("open");
+        }
+
+        function closeNav() {
+            document.getElementById("sidepanel").classList.remove("open");
+        }
+
+        document.addEventListener("keydown", function (event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                calculate();
+            }
+        });
+
     </script>
 </body>
 </html>
